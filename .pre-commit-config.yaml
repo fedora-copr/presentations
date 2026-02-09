@@ -1,0 +1,36 @@
+ci:
+  autofix_prs: false
+
+repos:
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v6.0.0
+    hooks:
+      - id: check-added-large-files
+        exclude: \.pdf$
+      - id: check-docstring-first
+      - id: check-executables-have-shebangs
+      - id: check-json
+      - id: check-merge-conflict
+      - id: check-symlinks
+      - id: check-yaml
+      - id: destroyed-symlinks
+      - id: end-of-file-fixer
+      - id: mixed-line-ending
+      - id: detect-private-key
+      - id: check-toml
+      - id: pretty-format-json
+        args:
+          - --fix=lf
+      - id: trailing-whitespace
+
+  - repo: https://github.com/pre-commit/mirrors-prettier
+    rev: v4.0.0-alpha.8
+    hooks:
+      - id: prettier
+        types_or: [html, javascript, css]
+
+  - repo: https://github.com/igorshubovych/markdownlint-cli
+    rev: v0.43.0
+    hooks:
+      - id: markdownlint
+        args: [--fix]

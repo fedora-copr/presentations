@@ -1,0 +1,368 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- dynamic <title> based on SLIDES_DIR, this will be replaced by the presentation name -->
+    <title>presentation</title>
+
+    <!-- reveal.js (served from the container) -->
+    <link rel="stylesheet" href="dist/reveal.css" />
+    <link rel="stylesheet" href="dist/theme/white.css" />
+    <link rel="stylesheet" href="plugin/highlight/monokai.css" />
+
+    <!-- Fedora brand fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;900&family=Open+Sans:wght@400;600;700&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Fedora brand colours, typography, and layout from https://docs.fedoraproject.org/en-US/project/brand/ -->
+    <style>
+      /* Fedora brand variables */
+      :root {
+        --dark-fedora-blue: #294172;
+        --fedora-blue: #3c6eb4;
+        --new-fedora-blue: #51a2da;
+        --freedom-purple: #a07cbc;
+        --friends-magenta: #db3279;
+        --features-orange: #e59728;
+        --first-green: #79db32;
+      }
+
+      /* override reveal.js theme variables */
+      .reveal {
+        --r-background-color: #ffffff;
+        --r-main-font: "Open Sans", "Source Sans Pro", Helvetica, sans-serif;
+        --r-main-font-size: 28px;
+        --r-main-color: #333333;
+        --r-heading-font:
+          "Montserrat", "Source Sans Pro", Helvetica, sans-serif;
+        --r-heading-color: var(--dark-fedora-blue);
+        --r-heading-font-weight: 700;
+        --r-heading-text-transform: none;
+        --r-link-color: var(--fedora-blue);
+        --r-link-color-hover: var(--new-fedora-blue);
+        --r-selection-background-color: var(--new-fedora-blue);
+        --r-selection-color: #fff;
+      }
+
+      /* global slide styling */
+      .reveal .slides section {
+        text-align: left;
+      }
+
+      .reveal h1,
+      .reveal h2,
+      .reveal h3 {
+        text-align: left;
+      }
+
+      .reveal h1 {
+        font-weight: 900;
+      }
+
+      /* list item spacing */
+      .reveal li {
+        margin-bottom: 0.35em;
+      }
+
+      /* title slide (first slide) */
+      .reveal .slides section.title-slide {
+        text-align: center;
+      }
+      .reveal .slides section.title-slide h1 {
+        text-align: center;
+        font-size: 3em;
+        color: var(--dark-fedora-blue);
+      }
+
+      /* slide top border accent */
+      .reveal .slides section::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 4px;
+        background: linear-gradient(
+          90deg,
+          var(--dark-fedora-blue),
+          var(--fedora-blue),
+          var(--new-fedora-blue)
+        );
+      }
+
+      .reveal .slides section {
+        padding-top: 0.6em;
+      }
+
+      /* persistent footer with Fedora logo */
+      .reveal .slide-footer {
+        position: fixed;
+        bottom: 16px;
+        left: 24px;
+        z-index: 100;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        font-family: "Open Sans", sans-serif;
+        font-size: 14px;
+        color: #999;
+      }
+      .reveal .slide-footer img {
+        height: 28px;
+        opacity: 0.7;
+      }
+
+      /* code blocks */
+      .reveal pre {
+        border-left: 4px solid var(--fedora-blue);
+        border-radius: 0 4px 4px 0;
+      }
+      .reveal code {
+        font-size: 0.85em;
+      }
+
+      /* callout boxes (info / warning / success) */
+      .reveal .box,
+      .reveal .box-warn,
+      .reveal .box-green {
+        padding: 0.4em 0.8em;
+        margin: 0.4em 0;
+        text-align: left;
+        border-radius: 4px;
+        border-left: 4px solid;
+        font-size: 0.9em;
+      }
+      .reveal .box {
+        background: #e8f0fe;
+        border-color: var(--fedora-blue);
+      }
+      .reveal .box-warn {
+        background: #fff8e6;
+        border-color: var(--features-orange);
+      }
+      .reveal .box-green {
+        background: #eefbef;
+        border-color: var(--first-green);
+      }
+
+      /* two-column layout */
+      .reveal .two-col {
+        display: flex;
+        gap: 1.5em;
+        align-items: flex-start;
+      }
+      .reveal .two-col > div {
+        flex: 1;
+      }
+
+      /* numbered step circle */
+      .reveal .step-num {
+        display: inline-block;
+        background: var(--fedora-blue);
+        color: #fff;
+        width: 1.3em;
+        height: 1.3em;
+        line-height: 1.3em;
+        text-align: center;
+        border-radius: 50%;
+        font-weight: bold;
+        margin-right: 0.3em;
+      }
+
+      .reveal .vs-table {
+        width: 100%;
+        border-collapse: collapse;
+      }
+      .reveal .vs-table th {
+        background: var(--dark-fedora-blue);
+        color: #fff;
+        padding: 0.3em 0.6em;
+      }
+      .reveal .vs-table td {
+        padding: 0.3em 0.6em;
+        border-bottom: 1px solid #ddd;
+      }
+
+      .reveal .link-card {
+        display: block;
+        text-decoration: none;
+        color: inherit;
+        background: #f0f0f0;
+        border: 1px solid #dee2e6;
+        border-radius: 6px;
+        padding: 0.35em 0.7em;
+        margin: 0.25em 0;
+        text-align: left;
+        transition:
+          background 0.2s,
+          border-color 0.2s;
+      }
+      .reveal .link-card:hover {
+        background: #e0e7ef;
+        border-color: var(--fedora-blue);
+      }
+
+      .reveal .slides section.section-slide {
+        text-align: center;
+        background: linear-gradient(
+          135deg,
+          var(--dark-fedora-blue) 0%,
+          var(--fedora-blue) 100%
+        );
+      }
+      .reveal .slides section.section-slide h2,
+      .reveal .slides section.section-slide p {
+        color: #fff;
+        text-align: center;
+      }
+      .reveal .slides section.section-slide::before {
+        background: rgba(255, 255, 255, 0.3);
+        height: 3px;
+      }
+
+      .reveal .slides section.closing-slide {
+        text-align: center;
+        background: linear-gradient(
+          135deg,
+          var(--dark-fedora-blue) 0%,
+          var(--fedora-blue) 60%,
+          var(--new-fedora-blue) 100%
+        );
+      }
+      .reveal .slides section.closing-slide h1,
+      .reveal .slides section.closing-slide h2,
+      .reveal .slides section.closing-slide p {
+        color: #fff;
+        text-align: center;
+      }
+      .reveal .slides section.closing-slide::before {
+        display: none;
+      }
+
+      .reveal .flow-diagram {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 0;
+        margin: 0.8em 0;
+      }
+      .reveal .flow-step {
+        text-align: center;
+        padding: 0.5em 1em;
+        border-radius: 10px;
+        font-weight: 600;
+      }
+      .reveal .flow-step img {
+        height: 48px;
+        margin-bottom: 0.3em;
+        display: block;
+        margin-left: auto;
+        margin-right: auto;
+      }
+      .reveal .flow-arrow {
+        font-size: 2em;
+        color: var(--fedora-blue);
+        margin: 0 0.2em;
+      }
+
+      .reveal .logo-row {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 2em;
+        margin: 0.8em 0;
+      }
+      .reveal .logo-row img {
+        height: 50px;
+        opacity: 0.85;
+        transition: opacity 0.3s;
+      }
+      .reveal .logo-row img:hover {
+        opacity: 1;
+      }
+
+      .reveal .big-icon {
+        font-size: 3em;
+        margin-bottom: 0.2em;
+      }
+
+      /* rule of 3 highlight boxes */
+      .reveal .three-cards {
+        display: flex;
+        gap: 1em;
+        justify-content: center;
+        margin: 0.8em 0;
+      }
+      .reveal .three-cards > div {
+        flex: 1;
+        text-align: center;
+        background: #f8f9fa;
+        border-radius: 10px;
+        padding: 0.6em;
+        border-top: 4px solid var(--fedora-blue);
+      }
+      .reveal .three-cards > div .card-icon {
+        font-size: 2em;
+        margin-bottom: 0.2em;
+      }
+      .reveal .three-cards > div h3 {
+        text-align: center;
+        margin: 0.2em 0;
+        font-size: 0.9em;
+      }
+
+      /* slide number styling */
+      .reveal .slide-number {
+        font-family: "Montserrat", sans-serif;
+        font-size: 14px;
+        color: #999;
+        background: transparent;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="reveal">
+      <div class="slides">
+        <!--
+    Slide content is loaded from slides.md (external Markdown).
+    This works because the container runs a real HTTP server.
+
+    Separator between slides:    ---     (blank line, three dashes, blank line)
+    Speaker notes start with:    Note:   (on its own line)
+
+    Edit  slides.md  for content.  Edit this file for styles.
+  -->
+        <section
+          data-markdown="slides.md"
+          data-separator="^\r?\n---\r?\n$"
+          data-separator-notes="^Note:"
+          data-charset="utf-8"
+        ></section>
+      </div>
+
+      <div class="slide-footer">
+        <img src="assets/fedora_default-horizontal.png" alt="Fedora" />
+      </div>
+    </div>
+
+    <script src="dist/reveal.js"></script>
+    <script src="plugin/markdown/markdown.js"></script>
+    <script src="plugin/notes/notes.js"></script>
+    <script src="plugin/highlight/highlight.js"></script>
+    <script>
+      Reveal.initialize({
+        hash: true,
+        slideNumber: "c/t",
+        plugins: [RevealMarkdown, RevealNotes, RevealHighlight],
+        transition: "slide",
+        width: 1280,
+        height: 720,
+      });
+    </script>
+  </body>
+</html>
