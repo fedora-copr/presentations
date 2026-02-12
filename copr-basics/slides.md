@@ -4,7 +4,7 @@
 
 <img src="assets/fedora_white-horizontal.png" alt="Fedora" style="height:80px; margin-bottom:0.5em;">
 
-# <!-- .element: style="color:#fff;" --> Copr
+# <!-- .element: style="color:#fff;" --> <img src="assets/copr-logo.png" style="height:58px; vertical-align:middle;">
 
 <!-- .element: style="color:rgba(255, 255, 255, 0.9); font-size:1.1em;" -->
 
@@ -132,6 +132,7 @@ Note:
 - Koji = official Fedora builds
 - Copr = personal, experimental, upstream, CI/CD
 - packaging guidelines not required (but good practice)
+- koji -> lot of things through tickets, Copr self-service - click and done
 - source types just as overview
 - today: SRPM upload and URL
 - SCM = Copr clones Git
@@ -243,7 +244,7 @@ Note:
 # Create a project
 copr create workshop-cli-demo \
     --chroot fedora-rawhide-x86_64 \
-    --chroot fedora-41-x86_64
+    --chroot fedora-43-x86_64
 
 # Submit a build (from URL)
 copr build workshop-cli-demo \
