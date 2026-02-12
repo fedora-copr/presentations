@@ -316,6 +316,49 @@
         font-size: 0.9em;
       }
 
+      /* two-card layout (like three-cards but for 2) */
+      .reveal .two-cards {
+        display: flex;
+        gap: 1em;
+        justify-content: center;
+        margin: 0.8em 0;
+      }
+      .reveal .two-cards > div {
+        flex: 1;
+        text-align: center;
+        background: #f8f9fa;
+        border-radius: 10px;
+        padding: 0.6em;
+        border-top: 4px solid var(--fedora-blue);
+      }
+      .reveal .two-cards > div .card-icon {
+        font-size: 2em;
+        margin-bottom: 0.2em;
+      }
+      .reveal .two-cards > div h3 {
+        text-align: center;
+        margin: 0.2em 0;
+        font-size: 0.9em;
+      }
+
+      /* objectives / chapter intro slide */
+      .reveal .slides section.objectives-slide {
+        border-left: 6px solid var(--fedora-blue);
+        padding-left: 1.2em;
+      }
+
+      /* inline spec-tag highlight */
+      .reveal .spec-tag {
+        display: inline-block;
+        background: var(--dark-fedora-blue);
+        color: #fff;
+        padding: 0.1em 0.5em;
+        border-radius: 4px;
+        font-family: monospace;
+        font-size: 0.85em;
+        font-weight: 600;
+      }
+
       /* slide number styling */
       .reveal .slide-number {
         font-family: "Montserrat", sans-serif;

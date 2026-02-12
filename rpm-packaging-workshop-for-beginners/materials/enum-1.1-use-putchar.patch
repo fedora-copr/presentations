@@ -1,0 +1,13 @@
+diff --git a/src/main.c b/src/main.c
+index 47a3da9..388202c 100644
+--- a/src/main.c
++++ b/src/main.c
+@@ -156,7 +156,7 @@ int main(int argc, char **argv) {
+
+ 		if (i != 0) {
+ 			if (CHECK_FLAG(dest.flags, FLAG_NULL_BYTES)) {
+-				fputc('\0', stdout);
++				putchar('\0');
+ 			} else {
+ 				printf("%s", dest.separator);
+ 			}
