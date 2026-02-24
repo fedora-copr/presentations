@@ -166,7 +166,7 @@ Install packages with file name:
 
 ```bash
 # i for install, v for verbose, h for process hash
-rpm -ivh pkg-workshop-1-0.x86_64.rpm
+sudo rpm -ivh pkg-workshop-1-0.x86_64.rpm
 ```
 
 Query installed package with package name:
@@ -183,7 +183,7 @@ Remove package with package name:
 
 ```bash
 # e for erase
-rpm -eh pkg-workshop
+sudo rpm -eh pkg-workshop
 ```
 
 List all installed packages in RPM database:
@@ -231,6 +231,10 @@ rpm -ivh pkg-workshop-1-0.src.rpm
 ```bash
 rpmbuild --rmsource --rmspec pkg-workshop.spec
 ```
+
+Note:
+
+- no SUDO!
 
 ---
 
